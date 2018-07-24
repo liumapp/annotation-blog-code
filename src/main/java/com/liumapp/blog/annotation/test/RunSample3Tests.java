@@ -1,6 +1,7 @@
 package com.liumapp.blog.annotation.test;
 
 import com.liumapp.blog.annotation.test.annotation.ExceptionTest;
+import com.liumapp.blog.annotation.test.annotation.MultyExceptionTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,21 +24,24 @@ public class RunSample3Tests {
         int passed = 0;
         Class testClass = Class.forName(Sample3.class.getName());
         for (Method m : testClass.getDeclaredMethods()) {
-            if (m.isAnnotationPresent(ExceptionTest.class)) {
+            if (m.isAnnotationPresent(MultyExceptionTest.class)) {
                 tests++;
                 try {
                     m.invoke(null);
                     logger.error("Test " + m + " failed: no exception");
-                } catch (InvocationTargetException e1) {
+                } catch (Throwable e1) {
                     Throwable exc = e1.getCause();
-                    Class<? extends Exception> excType = m.getAnnotation(ExceptionTest.class).value();
-                    if (excType.isInstance(exc)) {
-                        passed++;
-                    } else {
-                        logger.info("Tests " + m + " failed : expected" + excType.getName() + " , got " + exc);
+                    Class<? extends Exception>[] excTypes = m.getAnnotation(MultyExceptionTest.class).value();
+                    int oldPassed = passed;
+                    for (Class<? extends Exception> excType : excTypes) {
+                        if (excType.isInstance(exc)) {
+                            passed++;
+                            break;
+                        }
                     }
-                } catch (Exception e2) {
-                    logger.info("INVAILD @Test : " + m);
+                    if (passed == oldPassed) {
+                        logger.info("Test " + m + " failed : " + exc);
+                    }
                 }
             }
         }
