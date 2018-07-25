@@ -324,7 +324,42 @@ Java 官方文档说，未来的版本会授权编译器对这种不安全的操
 
 ### 1.4 检测注解的存在
 
+现在假设我们存在这样的一个注解：
 
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.TYPE)
+    @Inherited
+    @Documented
+    public @interface HumanAnnotation {
+    
+        String name ();
+    
+        String sex ();
+    
+        int age ();
+    
+    }
+
+并将它应用到一个Man类上：
+
+    @HumanAnnotation(name = "Zhangsan", sex = "boy", age = 18)
+    public class Man {
+    
+    }
+    
+接下来的代码展示了如何判断Man类是否存在HumanAnnotation注解，并且将其属性取出：
+
+    private static Logger logger = LoggerFactory.getLogger(Man.class);
+
+    public static void main (String[] args) {
+        boolean hasAnnotation = Man.class.isAnnotationPresent(HumanAnnotation.class);
+        if (hasAnnotation) {
+            HumanAnnotation humanAnnotation = Man.class.getAnnotation(HumanAnnotation.class);
+            logger.info("a human named :  " + humanAnnotation.name());
+            logger.info("a human who is a : " + humanAnnotation.sex());
+            logger.info("a human who is : " + humanAnnotation.age() + " years old");
+        }
+    }
 
 ### 1.5 注解的使用场景
 
