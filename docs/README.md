@@ -70,6 +70,21 @@ Target 是目标的意思，@Target 指定了注解运用的地方
 
 #### 1.1.4 @Inherited
 
+Inherited 是继承的意思，但是它并不是说注解本身可以继承
 
+而是说如果一个超类被 @Inherited 注解过的注解进行注解的话，那么如果它的子类没有被任何注解应用的话，那么这个子类就继承了超类的注解
+ 
+示例代码：
+
+    @Inherited
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface Test {}
+    
+    @Test
+    public class A {}
+    
+    public class B extends A {}
+
+注解 Test 被 @Inherited 修饰，之后类 A 被 Test 注解，类 B 继承 A,类 B 也拥有 Test 这个注解
 
 #### 1.1.5 @Repeatable
