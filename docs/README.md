@@ -10,14 +10,27 @@
 
 #### 1.1.1 @Retention
 
+Retention 的英文意为保留期的意思
 
+当 @Retention 应用到一个注解上的时候，它解释说明了这个注解的的存活时间
+
+它的取值如下：
+ 
+* RetentionPolicy.SOURCE 注解只在源码阶段保留，在编译器进行编译时它将被丢弃忽视
+ 
+* RetentionPolicy.CLASS 注解只被保留到编译进行的时候，它并不会被加载到 JVM 中
+ 
+* RetentionPolicy.RUNTIME 注解可以保留到程序运行的时候，它会被加载进入到 JVM 中，所以在程序运行时可以获取到它们
 
 #### 1.1.2 @Documented
 
+顾名思义，这个元注解肯定是和文档有关
 
-
+它的作用是能够将注解中的元素包含到 Javadoc 中去
 
 #### 1.1.3 @Target
+
+
 
 #### 1.1.4 @Inherited
 
