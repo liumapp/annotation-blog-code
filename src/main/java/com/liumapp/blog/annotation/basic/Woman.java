@@ -20,6 +20,15 @@ public class Woman {
     @MoveFasterAnnotation
     private void walk () {}
 
-    
+    @SuppressWarnings("deprecation")
+    public void wrongMethod () {
+        TestDeprecated testDeprecated = new TestDeprecated();
+        testDeprecated.wrongMethod();
+        testDeprecated.correctMethod();
+    }
+
+
+
+
 
 }
