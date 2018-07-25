@@ -365,9 +365,97 @@ Java 官方文档说，未来的版本会授权编译器对这种不安全的操
     
 #### 1.4.2 获取属性、方法上的注解信息
 
+现在假设我们存在两个注解：
 
+* 作用于类属性上的：
+
+        @Retention(RetentionPolicy.RUNTIME)
+        @Target(ElementType.FIELD)
+        public @interface FoodAnnotation {
+        
+            String value();
+        
+        }
+
+* 作用于类方法上的：
+
+        @Retention(RetentionPolicy.RUNTIME)
+        @Target(ElementType.METHOD)
+        public @interface MoveFasterAnnotation {
+        }
+
+然后我们定义了一个新的类，并在其属性和方法上，应用了上述的两个注解：
+
+    @HumanAnnotation(name = "XiaoJu", sex = "girl", age = 18)
+    public class Woman {
+    
+        private static Logger logger = LoggerFactory.getLogger(Woman.class);
+    
+        @FoodAnnotation("apple")
+        private String lovesFood;
+    
+        @MoveFasterAnnotation
+        private void walk () {}
+    
+        @SuppressWarnings("deprecation")
+        public void wrongMethod () {
+            TestDeprecated testDeprecated = new TestDeprecated();
+            testDeprecated.wrongMethod();
+            testDeprecated.correctMethod();
+        }
+    
+        public static void main (String[] args) {
+            boolean hasAnnotation = Woman.class.isAnnotationPresent(HumanAnnotation.class);
+    
+            if (hasAnnotation) {
+                HumanAnnotation humanAnnotation = Woman.class.getAnnotation(HumanAnnotation.class);
+                logger.info("a human named: " + humanAnnotation.name());
+                logger.info("a human who is a: " + humanAnnotation.sex());
+                logger.info("a human who is:" + humanAnnotation.age() + " years old");
+            }
+    
+            try {
+                Field food = Woman.class.getDeclaredField("lovesFood");
+                food.setAccessible(true);
+    
+                FoodAnnotation foodAnnotation = food.getAnnotation(FoodAnnotation.class);
+    
+                if (foodAnnotation != null) {
+                    logger.info("the human loves to eat: " + foodAnnotation.value());
+                }
+    
+                Method method = Woman.class.getDeclaredMethod("walk");
+    
+                if (method != null) {
+                    Annotation[] ans = method.getDeclaredAnnotations();
+                    for (Annotation annotation : ans) {
+                        logger.info("the human has method: " + annotation.annotationType().getSimpleName());
+                    }
+                }
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+    
+    }
+    
+通过对应的输出信息可以得到结论：
+
+通过反射：getDeclaredField(${fieldName})和getDeclaredMethod(${methodName})获取到具体的字段和方法后，再利用getAnnotation()或者getDeclaredAnnotations()，便可以获取标记在类属性或者类方法上的注解
+
+相关输出如下：    
+    
+    21:29:16.825 [main] INFO com.liumapp.blog.annotation.basic.Woman - a human named: XiaoJu
+    21:29:16.828 [main] INFO com.liumapp.blog.annotation.basic.Woman - a human who is a: girl
+    21:29:16.828 [main] INFO com.liumapp.blog.annotation.basic.Woman - a human who is:18 years old
+    21:29:16.832 [main] INFO com.liumapp.blog.annotation.basic.Woman - the human loves to eat: apple
+    21:29:16.835 [main] INFO com.liumapp.blog.annotation.basic.Woman - the human has method: MoveFasterAnnotation        
 
 ### 1.5 注解的使用场景
+
+
 
 
 
