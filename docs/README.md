@@ -222,6 +222,76 @@ TestAnnotation 中 id 属性默认值为 -1, msg 属性默认值为 'Hi'
     @Perform
     public void testMethod(){}
 
+### 1.3 Java内置的注解
+
+#### 1.3.1 @Deprecated
+
+这个元素是用来标记过时的元素
+
+编译器在编译阶段遇到这个注解时会发出提醒警告，告诉开发者正在调用一个过时的元素比如过时的方法、过时的类、过时的成员变量
+
+    public class Hero {
+    
+        @Deprecated
+        public void say(){
+            System.out.println("Noting has to say!");
+        }
+    
+    
+        public void speak(){
+            System.out.println("I have a dream!");
+        }
+    
+    
+    }
+
+定义了一个 Hero 类，它有两个方法 say() 和 speak()，其中 say() 被 @Deprecated 注解
+
+然后我们在 IDE 中把下面这段代码加上：
+
+    Hero hero = new Hero();
+    hero.say();
+    hero.speak();
+
+可以看到，hero.say()的say()方法上面被一条直线划了一条，这其实就是编译器识别后的提醒效果
+
+#### 1.3.2 @Override
+
+提示子类要复写父类中被 @Override 修饰的方法
+
+#### 1.3.3 @SuppressWarnings
+
+阻止警告的意思
+
+之前说过调用被 @Deprecated 注解的方法后，编译器会警告提醒，而有时候开发者会忽略这种警告，他们可以在调用的地方通过 @SuppressWarnings 达到目的
+    
+    @SuppressWarnings("deprecation")
+    public void test1(){
+        Hero hero = new Hero();
+        hero.say();
+        hero.speak();
+    }
+
+#### 1.3.4 @SafeVarargs
+
+参数安全类型注解。它的目的是提醒开发者不要用参数做一些不安全的操作,它的存在会阻止编译器产生 unchecked 这样的警告。它是在 Java 1.7 的版本中加入的。
+
+    @SafeVarargs // Not actually safe!
+        static void m(List<String>... stringLists) {
+        Object[] array = stringLists;
+        List<Integer> tmpList = Arrays.asList(42);
+        array[0] = tmpList; // Semantically invalid, but compiles without warnings
+        String s = stringLists[0].get(0); // Oh no, ClassCastException at runtime!
+    }
+
+上面的代码中，编译阶段不会报错，但是运行时会抛出 ClassCastException 这个异常，所以它虽然告诉开发者要妥善处理，但是开发者自己还是搞砸了
+
+Java 官方文档说，未来的版本会授权编译器对这种不安全的操作产生错误警告
+
+#### 1.3.5 @FunctionalInterface
+
+
+
 
 
 
