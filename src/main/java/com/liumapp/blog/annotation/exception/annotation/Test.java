@@ -1,4 +1,4 @@
-package com.liumapp.blog.annotation.test.annotation;
+package com.liumapp.blog.annotation.exception.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,15 +7,12 @@ import java.lang.annotation.Target;
 
 /**
  * @author liumapp
- * @file ExceptionTest.java
+ * @file Test.java
  * @email liumapp.com@gmail.com
  * @homepage http://www.liumapp.com
  * @date 7/24/18
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface ExceptionTest {
-
-    Class<? extends Exception> value();
-
+public @interface Test {
 }

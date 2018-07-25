@@ -274,10 +274,14 @@ TestAnnotation 中 id 属性默认值为 -1, msg 属性默认值为 'Hi'
 
 #### 1.3.4 @SafeVarargs
 
-参数安全类型注解。它的目的是提醒开发者不要用参数做一些不安全的操作,它的存在会阻止编译器产生 unchecked 这样的警告。它是在 Java 1.7 的版本中加入的。
+参数安全类型注解
+
+它的目的是提醒开发者不要用参数做一些不安全的操作,它的存在会阻止编译器产生 unchecked 这样的警告
+
+它是在 Java 1.7 的版本中加入的
 
     @SafeVarargs // Not actually safe!
-        static void m(List<String>... stringLists) {
+    static void m(List<String>... stringLists) {
         Object[] array = stringLists;
         List<Integer> tmpList = Arrays.asList(42);
         array[0] = tmpList; // Semantically invalid, but compiles without warnings
@@ -289,6 +293,41 @@ TestAnnotation 中 id 属性默认值为 -1, msg 属性默认值为 'Hi'
 Java 官方文档说，未来的版本会授权编译器对这种不安全的操作产生错误警告
 
 #### 1.3.5 @FunctionalInterface
+
+函数式接口注解，这个是 Java 1.8 版本引入的新特性
+
+函数式编程很火，所以 Java 8 也及时添加了这个特性
+
+函数式接口 (Functional Interface) 就是一个具有一个方法的普通接口
+
+比如：
+    
+    @FunctionalInterface
+    public interface Runnable {
+        /**
+         * When an object implementing interface <code>Runnable</code> is used
+         * to create a thread, starting the thread causes the object's
+         * <code>run</code> method to be called in that separately executing
+         * thread.
+         * <p>
+         * The general contract of the method <code>run</code> is that it may
+         * take any action whatsoever.
+         *
+         * @see     java.lang.Thread#run()
+         */
+        public abstract void run();
+    }
+
+我们进行线程开发中常用的 Runnable 就是一个典型的函数式接口，上面源码可以看到它就被 @FunctionalInterface 注解
+
+可能有人会疑惑，函数式接口标记有什么用，这个原因是函数式接口可以很容易转换为 Lambda 表达式
+
+### 1.4 检测注解的存在
+
+
+
+### 1.5 注解的使用场景
+
 
 
 

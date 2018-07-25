@@ -1,11 +1,9 @@
-package com.liumapp.blog.annotation.test;
+package com.liumapp.blog.annotation.exception;
 
-import com.liumapp.blog.annotation.test.annotation.ExceptionTest;
-import com.liumapp.blog.annotation.test.annotation.MultyExceptionTest;
+import com.liumapp.blog.annotation.exception.annotation.MultyExceptionTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**

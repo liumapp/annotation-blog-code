@@ -1,6 +1,6 @@
-package com.liumapp.blog.annotation.test;
+package com.liumapp.blog.annotation.exception;
 
-import com.liumapp.blog.annotation.test.annotation.MultyExceptionTest;
+import com.liumapp.blog.annotation.exception.annotation.MultyExceptionTest;
 
 import java.util.ArrayList;
 import java.util.List;

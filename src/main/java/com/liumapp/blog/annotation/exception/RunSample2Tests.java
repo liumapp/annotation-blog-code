@@ -1,7 +1,6 @@
-package com.liumapp.blog.annotation.test;
+package com.liumapp.blog.annotation.exception;
 
-import com.liumapp.blog.annotation.test.annotation.ExceptionTest;
-import com.liumapp.blog.annotation.test.annotation.Test;
+import com.liumapp.blog.annotation.exception.annotation.ExceptionTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,6 +1,6 @@
-package com.liumapp.blog.annotation.test;
+package com.liumapp.blog.annotation.exception;
 
-import com.liumapp.blog.annotation.test.annotation.ExceptionTest;
+import com.liumapp.blog.annotation.exception.annotation.ExceptionTest;
 
 /**
  * @author liumapp
@@ -12,7 +12,7 @@ import com.liumapp.blog.annotation.test.annotation.ExceptionTest;
 public class Sample2 {
 
     /**
-     * test should pass
+     * exception should pass
      * correct exception
      */
     @ExceptionTest(ArithmeticException.class)
@@ -22,7 +22,7 @@ public class Sample2 {
     }
 
     /**
-     * test should fail
+     * exception should fail
      * wrong exception
      */
     @ExceptionTest(ArithmeticException.class)
@@ -32,7 +32,7 @@ public class Sample2 {
     }
 
     /**
-     * test should fail
+     * exception should fail
      * no exception
      */
     @ExceptionTest(ArithmeticException.class)

@@ -1,4 +1,4 @@
-package com.liumapp.blog.annotation.test.annotation;
+package com.liumapp.blog.annotation.exception.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
