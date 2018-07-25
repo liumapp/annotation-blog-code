@@ -88,3 +88,52 @@ Inherited 是继承的意思，但是它并不是说注解本身可以继承
 注解 Test 被 @Inherited 修饰，之后类 A 被 Test 注解，类 B 继承 A,类 B 也拥有 Test 这个注解
 
 #### 1.1.5 @Repeatable
+
+Repeatable 是可重复的意思
+
+@Repeatable 是 Java 1.8 才加进来的一个新特性
+
+什么样的注解会多次应用呢？通常是注解的值可以同时取多个
+
+举个例子，一个人他既是程序员又是产品经理,同时他还是个画家
+    
+    @interface Persons {
+        Person[]  value();
+    }
+    
+    
+    @Repeatable(Persons.class)
+    @interface Person{
+        String role default "";
+    }
+    
+    
+    @Person(role="artist")
+    @Person(role="coder")
+    @Person(role="PM")
+    public class SuperMan{
+    
+    }
+
+注意上面的代码，@Repeatable 注解了 Person。而 @Repeatable 后面括号中的类相当于一个容器注解
+
+什么是容器注解呢？就是用来存放其它注解的地方，它本身也是一个注解
+
+我们再看看代码中的相关容器注解
+
+    @interface Persons {
+        Person[]  value();
+    }
+
+按照规定，它里面必须要有一个 value 的属性，属性类型是一个被 @Repeatable 注解过的注解数组，注意它是数组
+
+如果不好理解的话，可以这样理解：
+
+Persons 是一张总的标签，上面贴满了 Person 这种同类型但内容不一样的标签
+
+把 Persons 给一个 SuperMan 贴上，相当于同时给他贴了程序员、产品经理、画家的标签
+
+我们可能对于 @Person(role=”PM”) 括号里面的内容感兴趣，它其实就是给 Person 这个注解的 role 属性赋值为 PM
+
+### 1.2 注解的属性
+
