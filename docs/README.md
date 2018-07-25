@@ -324,6 +324,8 @@ Java 官方文档说，未来的版本会授权编译器对这种不安全的操
 
 ### 1.4 检测注解的存在
 
+#### 1.4.1 获取类名上的注解信息
+
 现在假设我们存在这样的一个注解：
 
     @Retention(RetentionPolicy.RUNTIME)
@@ -360,8 +362,13 @@ Java 官方文档说，未来的版本会授权编译器对这种不安全的操
             logger.info("a human who is : " + humanAnnotation.age() + " years old");
         }
     }
+    
+#### 1.4.2 获取属性、方法上的注解信息
+
+
 
 ### 1.5 注解的使用场景
+
 
 
 
