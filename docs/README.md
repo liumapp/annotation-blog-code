@@ -137,7 +137,9 @@ Repeatable 是可重复的意思
     
     }
 
-注意上面的代码，@Repeatable 注解了 Person。而 @Repeatable 后面括号中的类相当于一个容器注解
+注意上面的代码，@Repeatable 注解了 Person
+
+而 @Repeatable 后面括号中的类相当于一个容器注解
 
 什么是容器注解呢？就是用来存放其它注解的地方，它本身也是一个注解
 
