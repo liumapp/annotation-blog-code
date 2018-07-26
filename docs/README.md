@@ -113,13 +113,11 @@ Inherited 是继承的意思，但是它并不是说注解本身可以继承
 
 #### 1.1.5 @Repeatable
 
-Repeatable 是可重复的意思
+Repeatable 是可重复的意思，这意味着，同一个注解，可以在同一个类或属性或方法，标记多次
 
-@Repeatable 是 Java 1.8 才加进来的一个新特性
+@Repeatable 是 Java 1.8 才加进来的一个新特性，也就是在jdk8之前我们不能使用它
 
-什么样的注解会多次应用呢？通常是注解的值可以同时取多个
-
-比如：
+##### 1.1.5.1 示范案例1
 
 我们在com.liumapp.blog.annotation.repeatable包下，定义了两个注解FoodAnnotation和FoodsAnnotation
 
@@ -167,6 +165,8 @@ FoodsAnnotation注解定义要有很多FoodAnnotation，每一个FoodAnnotation�
 比较容易理解：餐桌FoodTable上摆了米饭、橘子和香蕉
 
 我们可以通过下面的代码，将FoodTable上的食物打印出来：
+
+##### 1.1.5.2 示范案例2
 
 
     
