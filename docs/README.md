@@ -223,13 +223,13 @@ FoodsAnnotation注解定义要有很多FoodAnnotation，每一个FoodAnnotation�
     @Retention(RetentionPolicy.RUNTIME)
     public @interface TestAnnotation {
     
-        public int id() default -1;
+        public int id() default 1;
     
-        public String msg() default "Hi";
+        public String msg() default "hello world";
     
     }
 
-TestAnnotation 中 id 属性默认值为 -1, msg 属性默认值为 'Hi'
+TestAnnotation 中 id 属性默认值为 1, msg 属性默认值为 "hello world"
  
 它也可以这样应用:
 
@@ -250,12 +250,12 @@ TestAnnotation 中 id 属性默认值为 -1, msg 属性默认值为 'Hi'
 
 上面代码中，Check 这个注解只有 value 这个属性。所以可以这样应用。
 
-    @Check("hi")
+    @Check("hello world")
     int a;
 
 这和下面的效果是一样的
 
-    @Check(value="hi")
+    @Check(value="hello world")
     int a;
 
 最后，还需要注意的一种情况是一个注解没有任何属性
@@ -306,17 +306,27 @@ TestAnnotation 中 id 属性默认值为 -1, msg 属性默认值为 'Hi'
 
 提示子类要复写父类中被 @Override 修饰的方法
 
+事实上，这个注解我们经常使用，在IDEA中，当实现接口，或者继承抽象类，并重写里面的方法时，IDEA会自动提示我们需要将@Override注解加上
+
+那么如果不加的话会发生什么事情呢？
+
+##### 1.3.2.1 错误案例
+
+todo
+
 #### 1.3.3 @SuppressWarnings
 
 阻止警告的意思
 
 之前说过调用被 @Deprecated 注解的方法后，编译器会警告提醒，而有时候开发者会忽略这种警告，他们可以在调用的地方通过 @SuppressWarnings 达到目的
+
+比如在com.liumapp.blog.annotation包下的Woman类下，就用@SuppressWarnings将过期方法的错误警告忽略了：
     
     @SuppressWarnings("deprecation")
-    public void test1(){
-        Hero hero = new Hero();
-        hero.say();
-        hero.speak();
+    public void wrongMethod () {
+        TestDeprecated testDeprecated = new TestDeprecated();
+        testDeprecated.wrongMethod();
+        testDeprecated.correctMethod();
     }
 
 #### 1.3.4 @SafeVarargs
@@ -341,9 +351,7 @@ Java 官方文档说，未来的版本会授权编译器对这种不安全的操
 
 #### 1.3.5 @FunctionalInterface
 
-函数式接口注解，这个是 Java 1.8 版本引入的新特性
-
-函数式编程很火，所以 Java 8 也及时添加了这个特性
+函数式接口注解（函数式编程），这个是 Java 1.8 版本引入的新特性
 
 函数式接口 (Functional Interface) 就是一个具有一个方法的普通接口
 
