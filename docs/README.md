@@ -248,30 +248,30 @@ TestAnnotation 中 id 属性默认值为 -1, msg 属性默认值为 'Hi'
 
 编译器在编译阶段遇到这个注解时会发出提醒警告，告诉开发者正在调用一个过时的元素比如过时的方法、过时的类、过时的成员变量
 
-    public class Hero {
+    public class TestDeprecated {
+    
+        private Logger logger = LoggerFactory.getLogger(TestDeprecated.class);
     
         @Deprecated
-        public void say(){
-            System.out.println("Noting has to say!");
+        public void wrongMethod () {
+            logger.warn("wrong method had been called");
         }
     
-    
-        public void speak(){
-            System.out.println("I have a dream!");
+        public void correctMethod () {
+            logger.info("hello world");
         }
-    
     
     }
 
-定义了一个 Hero 类，它有两个方法 say() 和 speak()，其中 say() 被 @Deprecated 注解
+定义了一个 TestDeprecated 类，它有两个方法 wrongMethod() 和 correctMethod()，其中 wrongMethod() 被 @Deprecated 标记
 
 然后我们在 IDE 中把下面这段代码加上：
 
-    Hero hero = new Hero();
-    hero.say();
-    hero.speak();
+    TestDeprecated testDeprecated = new TestDeprecated();
+    testDeprecated.wrongMethod();
+    testDeprecated.correctMethod();
 
-可以看到，hero.say()的say()方法上面被一条直线划了一条，这其实就是编译器识别后的提醒效果
+可以看到，testDeprecated.wrongMethod()wrongMethod()方法上面被一条直线划了一条，这其实就是编译器识别后的提醒效果
 
 #### 1.3.2 @Override
 
@@ -481,7 +481,19 @@ Java 官方文档说，未来的版本会授权编译器对这种不安全的操
 
 所以注解就是给APT或者编译器用的
 
-#### 1.5.1 案例场景
+在代码的com.liumapp.blog.annotation.exception下，有4个sample类及其注解，概括了一些基础的注解使用场景案例
+
+## 2. 进阶用法
+
+以Spring对注解的使用为例，观察一下Java注解的进阶用法
+
+### 2.1 SpringBoot的自动配置
+
+
+
+
+
+
 
 
 
