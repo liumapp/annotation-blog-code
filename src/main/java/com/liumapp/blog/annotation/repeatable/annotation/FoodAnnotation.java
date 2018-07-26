@@ -12,6 +12,6 @@ import java.lang.annotation.Repeatable;
 @Repeatable(FoodsAnnotation.class)
 public @interface FoodAnnotation {
 
-    String name() default "apple";
+    public String name () default "apple";
 
 }

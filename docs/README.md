@@ -119,45 +119,57 @@ Repeatable 是可重复的意思
 
 什么样的注解会多次应用呢？通常是注解的值可以同时取多个
 
-举个例子，一个人他既是程序员又是产品经理,同时他还是个画家
-    
-    @interface Persons {
-        Person[]  value();
-    }
-    
-    @Repeatable(Persons.class)
-    @interface Person{
-        String role default "";
-    }
-    
-    @Person(role="artist")
-    @Person(role="coder")
-    @Person(role="PM")
-    public class SuperMan{
-    
-    }
+比如：
 
-注意上面的代码，@Repeatable 注解了 Person
+我们在com.liumapp.blog.annotation.repeatable包下，定义了两个注解FoodAnnotation和FoodsAnnotation
+
+* FoodAnnotation
+
+        @Repeatable(FoodsAnnotation.class)
+        public @interface FoodAnnotation {
+        
+            public String name () default "apple";
+        
+        }
+    
+* FoodsAnnotation
+
+        public @interface FoodsAnnotation {
+        
+            FoodAnnotation[] value();
+        
+        }
+
+@Repeatable 注解了 FoodAnnotation
 
 而 @Repeatable 后面括号中的类相当于一个容器注解
 
-什么是容器注解呢？就是用来存放其它注解的地方，它本身也是一个注解
+容器注解是用来存放其它注解的地方，它本身也是一个注解
 
-我们再看看代码中的相关容器注解
+然后在FoodsAnnotation中，我们可以看到
 
-    @interface Persons {
-        Person[]  value();
-    }
-
-按照规定，它里面必须要有一个 value 的属性，属性类型是一个被 @Repeatable 注解过的注解数组，注意它是数组
+    FoodAnnotation[] value()
+    
+按照规定，它里面必须要有一个 value 的属性，属性类型是一个被 @Repeatable 注解过的注解数组，注意它是数组    
 
 如果不好理解的话，可以这样理解：
 
-Persons 是一张总的标签，上面贴满了 Person 这种同类型但内容不一样的标签
+FoodsAnnotation注解定义要有很多FoodAnnotation，每一个FoodAnnotation必须要有明确的name
 
-把 Persons 给一个 SuperMan 贴上，相当于同时给他贴了程序员、产品经理、画家的标签
+接下来看看com.liumapp.blog.annotation.repeatable的另一个类FoodTable
 
-我们可能对于 @Person(role=”PM”) 括号里面的内容感兴趣，它其实就是给 Person 这个注解的 role 属性赋值为 PM
+    @FoodAnnotation(name = "rice")
+    @FoodAnnotation(name = "orange")
+    @FoodAnnotation(name = "banana")
+    public class FoodTable {
+    }
+    
+比较容易理解：餐桌FoodTable上摆了米饭、橘子和香蕉
+
+我们可以通过下面的代码，将FoodTable上的食物打印出来：
+
+
+    
 
 ### 1.2 注解的属性
 
