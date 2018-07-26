@@ -1,8 +1,6 @@
 package com.liumapp.blog.annotation.repeatable.annotation;
 
-import java.lang.annotation.Repeatable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.*;
 
 /**
  * @author liumapp
@@ -13,6 +11,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Repeatable(FoodsAnnotation.class)
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
 public @interface FoodAnnotation {
 
     public String name () default "apple";

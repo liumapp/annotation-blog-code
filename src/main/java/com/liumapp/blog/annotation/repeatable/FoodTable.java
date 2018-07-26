@@ -2,6 +2,7 @@ package com.liumapp.blog.annotation.repeatable;
 
 
 import com.liumapp.blog.annotation.repeatable.annotation.FoodAnnotation;
+import com.liumapp.blog.annotation.repeatable.annotation.FoodsAnnotation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,11 +21,13 @@ public class FoodTable {
 
     private static Logger logger = LoggerFactory.getLogger(FoodTable.class);
 
-    public static void main (String[] args) {
-        Class clazz = FoodTable.class;
-        boolean hasAnnotation = clazz.isAnnotationPresent(FoodAnnotation.class);
+    public static void main (String[] args) throws Exception {
+        Class<?> clazz = Class.forName(FoodTable.class.getName());
+        boolean hasAnnotation = clazz.isAnnotationPresent(FoodsAnnotation.class);
+
         if (hasAnnotation) {
-            FoodAnnotation[] foodAnnotations = (FoodAnnotation[]) clazz.getDeclaredAnnotations();
+            FoodsAnnotation foodsAnnotation = clazz.getAnnotation(FoodsAnnotation.class);
+            FoodAnnotation[] foodAnnotations = foodsAnnotation.value();
             for (FoodAnnotation foodAnnotation : foodAnnotations) {
                 logger.info("found food : " + foodAnnotation.name());
             }

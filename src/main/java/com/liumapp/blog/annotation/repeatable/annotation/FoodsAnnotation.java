@@ -1,7 +1,9 @@
 package com.liumapp.blog.annotation.repeatable.annotation;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author liumapp
@@ -11,6 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * @date 7/26/18
  */
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
 public @interface FoodsAnnotation {
 
     FoodAnnotation[] value();

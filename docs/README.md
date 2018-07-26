@@ -117,8 +117,6 @@ Repeatable 是可重复的意思，这意味着，同一个注解，可以在同
 
 @Repeatable 是 Java 1.8 才加进来的一个新特性，也就是在jdk8之前我们不能使用它
 
-##### 1.1.5.1 示范案例1
-
 我们在com.liumapp.blog.annotation.repeatable包下，定义了两个注解FoodAnnotation和FoodsAnnotation
 
 * FoodAnnotation
@@ -166,9 +164,22 @@ FoodsAnnotation注解定义要有很多FoodAnnotation，每一个FoodAnnotation�
 
 我们可以通过下面的代码，将FoodTable上的食物打印出来：
 
-##### 1.1.5.2 示范案例2
+        Class<?> clazz = Class.forName(FoodTable.class.getName());
+        boolean hasAnnotation = clazz.isAnnotationPresent(FoodsAnnotation.class);
 
+        if (hasAnnotation) {
+            FoodsAnnotation foodsAnnotation = clazz.getAnnotation(FoodsAnnotation.class);
+            FoodAnnotation[] foodAnnotations = foodsAnnotation.value();
+            for (FoodAnnotation foodAnnotation : foodAnnotations) {
+                logger.info("found food : " + foodAnnotation.name());
+            }
+        }
 
+相关输出如下：
+
+    11:13:46.284 [main] INFO com.liumapp.blog.annotation.repeatable.FoodTable - found food : rice
+    11:13:46.288 [main] INFO com.liumapp.blog.annotation.repeatable.FoodTable - found food : orange
+    11:13:46.288 [main] INFO com.liumapp.blog.annotation.repeatable.FoodTable - found food : banana
     
 
 ### 1.2 注解的属性
