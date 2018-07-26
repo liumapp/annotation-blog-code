@@ -25,9 +25,26 @@ public class RunSample4Tests {
         int errorNum = 0;
         for (Method m : methods) {
             if (m.isAnnotationPresent(SpecifyException.class)) {
-
+                try {
+                    m.setAccessible(true);
+                    m.invoke(sample4, null);
+                } catch (Exception e) {
+                    errorNum++;
+                    logs.append(m.getName());
+                    logs.append("   ");
+                    logs.append("\n\r caused by : ");
+                    logs.append(e.getCause().getClass().getSimpleName());
+                    logs.append("\n\r");
+                    logs.append(e.getCause().getMessage());
+                    logs.append("\n\r");
+                }
             }
         }
+        logs.append(clazz.getSimpleName());
+        logs.append(" has ");
+        logs.append(errorNum);
+        logs.append(" error.");
+        logger.info(logs.toString());
     }
 
 }
