@@ -1,5 +1,7 @@
 package com.liumapp.blog.annotation.repeatable.annotation;
 
+import java.lang.annotation.Repeatable;
+
 /**
  * @author liumapp
  * @file FoodAnnotation.java
@@ -7,5 +9,9 @@ package com.liumapp.blog.annotation.repeatable.annotation;
  * @homepage http://www.liumapp.com
  * @date 7/26/18
  */
+@Repeatable(FoodsAnnotation.class)
 public @interface FoodAnnotation {
+
+    String name() default "apple";
+
 }

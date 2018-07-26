@@ -9,6 +9,6 @@ package com.liumapp.blog.annotation.repeatable.annotation;
  */
 public @interface FoodsAnnotation {
 
-
+    FoodAnnotation[] value();
 
 }
